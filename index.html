@@ -21,6 +21,112 @@
             --text-gray: #BFBFBF;
         }
 
+        /* ====================================
+           PASSWORD PROTECTION
+           ==================================== */
+        #passwordOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        #passwordOverlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .password-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            backdrop-filter: blur(20px);
+        }
+
+        .password-box h2 {
+            color: var(--light-gray);
+            margin-bottom: 0.5rem;
+            font-size: 1.75rem;
+        }
+
+        .password-box p {
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .password-input-wrapper {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .password-box input {
+            width: 100%;
+            padding: 0.875rem 1.25rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--light-gray);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .password-box input:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .password-box button {
+            width: 100%;
+            padding: 0.875rem 1.25rem;
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .password-box button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(90, 111, 216, 0.3);
+        }
+
+        .password-error {
+            color: #ff6b6b;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
+        #mainContent {
+            display: none;
+        }
+
+        #mainContent.unlocked {
+            display: block;
+        }
+
+
         body {
             font-family: 'Aeonik Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: var(--dark-bg);
@@ -486,6 +592,158 @@
             padding: 8rem 0;
             overflow: hidden;
         }
+
+        /* MOBILE FIRST: Stack vertically */
+        .slider-image {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .slider-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mini-product-card {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .mini-product-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: var(--dark-bg);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .mini-product-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--dark-bg);
+            color: white;
+            border-radius: 50%;
+        }
+
+        .mini-product-subtitle {
+            color: var(--medium-gray);
+            font-size: 0.85rem;
+        }
+
+        .mini-product-image {
+            position: absolute;
+            right: 1rem;
+            bottom: -0.5rem;
+            width: 70px;
+            height: 70px;
+        }
+
+        .mini-product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .slider-content {
+            width: 100%;
+        }
+
+        .slider-controls {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .slider-btn {
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light-gray);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .slider-btn:hover:not(:disabled) {
+            background: var(--primary-purple);
+            border-color: var(--primary-purple);
+        }
+
+        .slider-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slider-content h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 400;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+        }
+
+        .slider-text {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* TABLET & DESKTOP: Side by side */
+        @media (min-width: 768px) {
+            .slider-item {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .slider-image {
+                flex: 1;
+                aspect-ratio: 4/3;
+            }
+
+            .slider-content {
+                flex: 1;
+                padding-left: 2rem;
+            }
+
+            .mini-product-card {
+                bottom: 2rem;
+                left: 2rem;
+                right: auto;
+                max-width: 280px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .slider-image {
+                flex: 1.2;
+            }
+
+            .slider-content {
+                flex: 0.8;
+                padding-left: 3rem;
+            }
+        }
+
 
         .tech-container {
             max-width: 1440px;
@@ -1227,7 +1485,7 @@
 
         /* ESPACIO PARA TU LOGO EN FOOTER - Descomenta y añade tu imagen */
         .footer-logo-image {
-            height: 29px;
+            height: 30px;
             width: auto;
         }
         /* Uso: <img src="assets/tu-logo.png" alt="DOUSSOUX" class="footer-logo-image"> */
@@ -1414,6 +1672,27 @@
 </head>
 <body>
 
+    <!-- PASSWORD PROTECTION -->
+    <div id="passwordOverlay">
+        <div class="password-box">
+            <h2>Acceso Restringido</h2>
+            <p>Por favor, introduce la contraseña para continuar</p>
+            <div class="password-input-wrapper">
+                <input 
+                    type="password" 
+                    id="passwordInput" 
+                    placeholder="Contraseña"
+                    autocomplete="off"
+                >
+            </div>
+            <button onclick="checkPassword()">Acceder</button>
+            <p class="password-error" id="passwordError">Contraseña incorrecta. Inténtalo de nuevo.</p>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="mainContent">
+
     <!-- Floating Particles -->
     <div class="particles" id="particles"></div>
 
@@ -1569,7 +1848,7 @@
         </div>
     </section>
 
-    <!-- SLIDER TECNOLOGÍA -->
+    <!-- SLIDER TECNOLOGÍA - OPTIMIZED FOR MOBILE -->
     <section class="tech-section" id="tecnologia">
         <div class="tech-container">
             <div class="section-divider"></div>
@@ -2118,7 +2397,50 @@
         </div>
     </footer>
 
+
+    </div> <!-- End #mainContent -->
+
     <script>
+        // ===================================
+        // PASSWORD PROTECTION
+        // ===================================
+        const CORRECT_PASSWORD = 'dsxhockey2025'; // CAMBIAR ESTO POR TU CONTRASEÑA DESEADA
+        
+        function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            const overlay = document.getElementById('passwordOverlay');
+            const mainContent = document.getElementById('mainContent');
+            const errorMsg = document.getElementById('passwordError');
+            
+            if (input.value === CORRECT_PASSWORD) {
+                overlay.classList.add('hidden');
+                mainContent.classList.add('unlocked');
+                sessionStorage.setItem('authenticated', 'true');
+            } else {
+                errorMsg.classList.add('show');
+                input.value = '';
+                input.focus();
+                setTimeout(() => {
+                    errorMsg.classList.remove('show');
+                }, 3000);
+            }
+        }
+        
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+        
+        if (sessionStorage.getItem('authenticated') === 'true') {
+            document.getElementById('passwordOverlay').classList.add('hidden');
+            document.getElementById('mainContent').classList.add('unlocked');
+        }
+
+        // ===================================
+        // ORIGINAL SCRIPTS
+        // ===================================
+        
         // Header scroll effect
         const header = document.getElementById('header');
         window.addEventListener('scroll', () => {
